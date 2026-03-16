@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>ESP32 Wi-Fi Config</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #e6f2e6;
+      color: #033d03;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #d4efd4;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      width: 350px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #1a5d1a;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #a3d9a3;
+      border-radius: 8px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    input:focus {
+      border-color: #2e8b2e;
+      box-shadow: 0 0 5px #2e8b2e;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 12px 25px;
+      font-size: 16px;
+      color: white;
+      background-color: #2e8b2e;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1a5d1a;
+    }
+
+    p {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #0b2d0b;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Налаштування Wi-Fi</h2>
+    <form action="/save" method="POST">
+      <label for="ssid">SSID мережі:</label>
+      <input type="text" id="ssid" name="ssid" placeholder="Введіть ім'я мережі" required>
+
+      <label for="pass">Пароль:</label>
+      <input type="password" id="pass" name="pass" placeholder="Пароль (необов'язково)">
+
+      <button type="submit">Зберегти та перезавантажити</button>
+    </form>
+    <p>Після збереження ESP32 перезавантажиться та підключиться до мережі.</p>
+  </div>
+</body>
+</html>
