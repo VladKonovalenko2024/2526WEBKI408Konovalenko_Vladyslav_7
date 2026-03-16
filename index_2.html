@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>ESP32 Dashboard</title>
+
+<style>
+
+body{
+font-family: Arial;
+text-align:center;
+margin-top:50px;
+background:#f4f4f4;
+}
+
+h1{
+margin-bottom:30px;
+}
+
+button{
+padding:12px 25px;
+font-size:16px;
+margin:10px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+.on{
+background:#4CAF50;
+color:white;
+}
+
+.off{
+background:#f44336;
+color:white;
+}
+
+#lamp{
+width:70px;
+height:70px;
+border-radius:50%;
+background:gray;
+margin:30px auto;
+box-shadow:0 0 10px rgba(0,0,0,0.3);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>ESP32 LED Control</h1>
+
+<div id="lamp"></div>
+
+<button class="on" onclick="turnOn()">ON</button>
+<button class="off" onclick="turnOff()">OFF</button>
+
+<script>
+
+function turnOn(){
+
+fetch('/api/control',{
+method:'POST',
+headers:{'Content-Type':'application/json'},
+body:JSON.stringify({command:"toggle"})
+})
+
+}
+
+function turnOff(){
+
+fetch('/api/control',{
+method:'POST',
+headers:{'Content-Type':'application/json'},
+body:JSON.stringify({command:"toggle"})
+})
+
+}
+
+function updateStatus(){
+
+fetch('/api/status')
+.then(res=>res.json())
+.then(data=>{
+
+let lamp=document.getElementById("lamp");
+
+if(data.led_on){
+lamp.style.background="green";
+}else{
+lamp.style.background="red";
+}
+
+})
+
+}
+
+setInterval(updateStatus,5000);
+
+updateStatus();
+
+</script>
+
+</body>
+</html>
