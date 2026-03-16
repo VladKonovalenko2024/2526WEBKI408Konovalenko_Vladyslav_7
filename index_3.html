@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADXL345 - Коноваленко В.Р.</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body { font-family: 'Segoe UI', sans-serif; background: #e6f9e6; color: #033d03; text-align:center; padding:30px; }
+h1 { color:#2e8b2e; margin-bottom:10px; }
+.panel { background:#d4f0d4; padding:25px; border-radius:15px; border:2px solid #4caf50; box-shadow:0 0 25px rgba(76,175,80,0.25); max-width:800px; margin:auto; }
+canvas { margin-top:20px; border-radius:10px; background:#f0fff0; }
+.note { margin-top:15px; color:#1a5d1a; font-size:0.9em; }
+</style>
+</head>
+<body>
+<div class="panel">
+<h1>ADXL345 - Дані по осях</h1>
+<canvas id="accelChart" width="700" height="300"></canvas>
+<div class="note">Дані по осях X, Y та Z</div>
+</div>
+
+<script>
+const labels = [];
+const dataX = [];
+const dataY = [];
+const dataZ = [];
+
+// Початкові дані
+for(let i=0;i<50;i++){
+    labels.push(i);
+    dataX.push(Math.sin(i/5)+Math.random()*0.5);
+    dataY.push(Math.cos(i/5)+Math.random()*0.5);
+    dataZ.push(Math.sin(i/7)+Math.random()*0.5);
+}
+
+const ctx = document.getElementById('accelChart').getContext('2d');
+const accelChart = new Chart(ctx,{
+    type:'line',
+    data:{
+        labels: labels,
+        datasets:[
+            {label:'X', data:dataX, borderColor:'#4caf50', backgroundColor:'rgba(76,175,80,0.2)', tension:0.3},
+            {label:'Y', data:dataY, borderColor:'#2e7d32', backgroundColor:'rgba(46,125,50,0.2)', tension:0.3},
+            {label:'Z', data:dataZ, borderColor:'#81c784', backgroundColor:'rgba(129,199,132,0.2)', tension:0.3}
+        ]
+    },
+    options:{
+        responsive:true,
+        plugins:{
+            legend:{ labels:{ color:'#033d03', font:{size:14} } }
+        },
+        scales:{
+            x:{ ticks:{ color:'#033d03' }, grid:{ color:'rgba(0,0,0,0.05)' } },
+            y:{ ticks:{ color:'#033d03' }, grid:{ color:'rgba(0,0,0,0.05)' } }
+        }
+    }
+});
+
+// Оновлення графіка кожні 500мс
+setInterval(()=>{
+    labels.push(labels[labels.length-1]+1);
+    dataX.push(Math.sin(labels[labels.length-1]/5)+Math.random()*0.5);
+    dataY.push(Math.cos(labels[labels.length-1]/5)+Math.random()*0.5);
+    dataZ.push(Math.sin(labels[labels.length-1]/7)+Math.random()*0.5);
+
+    if(labels.length>50){
+        labels.shift();
+        dataX.shift();
+        dataY.shift();
+        dataZ.shift();
+    }
+
+    accelChart.update();
+},500);
+</script>
+</body>
+</html>
