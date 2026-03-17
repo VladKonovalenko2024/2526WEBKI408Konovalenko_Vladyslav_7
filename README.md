@@ -1,1 +1,1 @@
-# 2526WEBKI408Konovalenko_Vladyslav_7
+Hardware Microcontroller: ESP32 Dev Module (30-pin). Interface: I2C (SDA: GPIO 21, SCL: GPIO 22). Communication: Wi-Fi 802.11 b/g/n. Libraries Arduino.h WiFi.h HTTPSServer.hpp SSLCert.hpp HTTPRequest.hpp HTTPResponse.hpp
